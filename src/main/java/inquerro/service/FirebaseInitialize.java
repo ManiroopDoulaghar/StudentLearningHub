@@ -32,10 +32,11 @@ public class FirebaseInitialize {
         FileSearch fileSearch = new FileSearch();
         try {
 
-            String fileName2 =fileSearch.searchDirectory(new File("tmp/eb_extracted_jar/BOOT-INF/classes"), "serviceAccount.json");
+            //String fileName2 =fileSearch.searchDirectory(new File("tmp/eb_extracted_jar/BOOT-INF/classes"), "serviceAccount.json");
 
             FileInputStream serviceAccount =
-                    new FileInputStream(fileName2);
+                    new FileInputStream("C:\\Users\\mani\\Desktop\\javaporject\\StudentLearningHub\\src\\main\\resources\\serviceAccountKey.json");
+                    //new FileInputStream("C:\\Users\\mani\\Desktop\\javaporject\\StudentLearningHub\\src\\main\\resources\\serviceAccount.json");
             //InputStream resource = this.getClass().getClassLoader().getResourceAsStream("/data/serviceAccount.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))

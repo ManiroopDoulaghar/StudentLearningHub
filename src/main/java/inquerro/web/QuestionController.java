@@ -135,7 +135,7 @@ public class QuestionController {
         if (start == null){
             start =0;
         }
-        List<Question> questionsList = questionService.getPaginatedQuestions(start,Integer.parseInt("4"));
+        List<Question> questionsList = questionService.getPaginatedQuestions(start,Integer.parseInt("20"));
         logger.debug("Question List: " + questionsList);
         List<String> allAnswers = new ArrayList<>();
         Long lastId = 0l;
@@ -186,7 +186,7 @@ public class QuestionController {
 
             tags[i] = tags[i].replace("-", " ");
         }
-        List<Question> questionsList = questionService.getPaginatedQuestionsByTagNames(start, tags, Integer.parseInt("4"));
+        List<Question> questionsList = questionService.getPaginatedQuestionsByTagNames(start, tags, Integer.parseInt("20"));
         logger.debug("Question List: " + questionsList);
         List<String> allAnswers = new ArrayList<>();
         List<Integer> allLikes = new ArrayList<>();

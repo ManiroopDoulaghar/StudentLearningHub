@@ -59,16 +59,19 @@ public class FirebaseService {
             String time = collectionsApiFuture.get().getUpdateTime().toString();
             //Get All tags Present in the question
             List<String> allTags = question.getTags();
+           logger.info("All tags present in question "+ allTags.toString() );
             //Get All catagories from Catagories service
             catagoriesService = new CatagoriesService();
             List<Catogories> allCatagories = catagoriesService.getCatagories();
+            logger.info("All catogories exist "+ allCatagories.toString() );
             //Get a Map between tags and Branch Id
             Map<String,Long> tagDestination = getTagDestination(allCatagories,allTags);
+            logger.info("tagDestination "+ tagDestination.toString() );
             //Iterate the Map of all Tags
              boolean result = false;
 
             for (Map.Entry<String, Long> entry : tagDestination.entrySet()) {
-                System.out.println(entry.getKey() + ":" + entry.getValue());
+                System.out.println(entry.getKey() + ":branchThatTagBelongs: " + entry.getValue());
                 String tagName = entry.getKey();
                 Long branchThatTagBelongs = entry.getValue();
                 QuestionsStats questionsStats =  catagoriesService.getQuestionsStatsById(branchThatTagBelongs);
