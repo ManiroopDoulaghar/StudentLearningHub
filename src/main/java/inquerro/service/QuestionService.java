@@ -71,19 +71,30 @@ public class QuestionService {
             logger.info("tags String" + tag);
            newTags.set(i,tag);
         }
-
-        Question question = Question.builder()
-                .answer(miniQuestion.getAnswer())
-                .author(currentUserName)
-                .tags(newTags)
-                .content(miniQuestion.getContent())
-                .createdAt(new Timestamp(System.currentTimeMillis()))
-                .explanation(miniQuestion.getExplanation())
-                .isDeleted(false)
-                .modifiedAt(new Timestamp(System.currentTimeMillis()))
-                .options(Arrays.asList(new String[]{miniQuestion.getOption0(),miniQuestion.getOption1(),miniQuestion.getOption2(),miniQuestion.getOption3()}))
-                .strAnswer(answer)
-                .build();
+        
+        Question question = new Question();
+        question.setAnswer(miniQuestion.getAnswer());
+        question.setAuthor(currentUserName);
+        question.setContent(miniQuestion.getContent());
+        question.setTags(newTags);
+        question.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        question.setExplanation(miniQuestion.getExplanation());
+        question.setDeleted(false);
+        question.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+        question.setOptions(Arrays.asList(new String[]{miniQuestion.getOption0(),miniQuestion.getOption1(),miniQuestion.getOption2(),miniQuestion.getOption3()}));
+        question.setStrAnswer(answer);
+//        Question question = Question.builder()
+//                .answer(miniQuestion.getAnswer())
+//                .author(currentUserName)
+//                .tags(newTags)
+//                .content(miniQuestion.getContent())
+//                .createdAt(new Timestamp(System.currentTimeMillis()))
+//                .explanation(miniQuestion.getExplanation())
+//                .isDeleted(false)
+//                .modifiedAt(new Timestamp(System.currentTimeMillis()))
+//                .options(Arrays.asList(new String[]{miniQuestion.getOption0(),miniQuestion.getOption1(),miniQuestion.getOption2(),miniQuestion.getOption3()}))
+//                .strAnswer(answer)
+//                .build();
 
 
         return question;
@@ -170,13 +181,22 @@ public class QuestionService {
             }else
                 answer = "d";
 
-            Question question = Question.builder()
-                    .content(userData.get("content").toString())
-                    .answer(userData.get("answer").toString())
-                    .options(optionsList)
-                    .explanation(userData.get("explanation").toString())
-                    .strAnswer(answer)
-                    .build();
+//            Question question = Question.builder()
+//                    .content(userData.get("content").toString())
+//                    .answer(userData.get("answer").toString())
+//                    .options(optionsList)
+//                    .explanation(userData.get("explanation").toString())
+//                    .strAnswer(answer)
+//                    .build();
+            
+            
+            Question question = new Question();
+            question.setAnswer(userData.get("answer").toString());
+            question.setContent(userData.get("content").toString());
+            question.setExplanation(userData.get("explanation").toString());
+            question.setStrAnswer(answer);
+            question.setOptions(optionsList);
+            
             allQuestions.add(question);
         }
 
@@ -231,18 +251,30 @@ public class QuestionService {
 
 
 
-            Question question = Question.builder()
-                    .id(Long.parseLong(userData.get("id").toString()))
-                    .author(userData.get("author").toString())
-                    .tags((List<String>)userData.get("tags"))
-                    .isDeleted((boolean)userData.get("deleted"))
-                    .content(userData.get("content").toString())
-                    .answer(userData.get("answer").toString())
-                    .options(optionsList)
-                    .likes((List<String>)userData.get("likes"))
-                    .explanation(userData.get("explanation").toString())
-                    .strAnswer(userData.get("strAnswer").toString())
-                    .build();
+//            Question question = Question.builder()
+//                    .id(Long.parseLong(userData.get("id").toString()))
+//                    .author(userData.get("author").toString())
+//                    .tags((List<String>)userData.get("tags"))
+//                    .isDeleted((boolean)userData.get("deleted"))
+//                    .content(userData.get("content").toString())
+//                    .answer(userData.get("answer").toString())
+//                    .options(optionsList)
+//                    .likes((List<String>)userData.get("likes"))
+//                    .explanation(userData.get("explanation").toString())
+//                    .strAnswer(userData.get("strAnswer").toString())
+//                    .build();
+            
+            Question question = new Question();
+            question.setId(Long.parseLong(userData.get("id").toString()));
+            question.setAnswer(userData.get("answer").toString());
+            question.setAuthor(userData.get("author").toString());
+            question.setContent(userData.get("content").toString());
+            question.setTags((List<String>)userData.get("tags"));
+            question.setExplanation(userData.get("explanation").toString());
+            question.setDeleted((boolean)userData.get("deleted"));
+            question.setOptions(optionsList);
+            question.setLikes((List<String>)userData.get("likes"));
+            question.setStrAnswer(userData.get("answer").toString());
             allQuestions.add(question);
         }
 
@@ -264,12 +296,18 @@ public class QuestionService {
 
             List<String> optionsList = (List<String>) userData.get("options");
 
-            Question question = Question.builder()
-                    .content(userData.get("content").toString())
-                    .answer(userData.get("answer").toString())
-                    .options(optionsList)
-                    .explanation(userData.get("explanation").toString())
-                    .build();
+//            Question question = Question.builder()
+//                    .content(userData.get("content").toString())
+//                    .answer(userData.get("answer").toString())
+//                    .options(optionsList)
+//                    .explanation(userData.get("explanation").toString())
+//                    .build();
+            
+            Question question = new Question();
+            question.setAnswer(userData.get("answer").toString());
+            question.setContent(userData.get("content").toString());
+            question.setExplanation(userData.get("explanation").toString());
+            question.setOptions(optionsList);
             allUsers.add(question);
         }
         System.out.println(allUsers);

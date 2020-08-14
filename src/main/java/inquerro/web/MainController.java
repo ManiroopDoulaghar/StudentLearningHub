@@ -9,11 +9,14 @@ import inquerro.service.FirebaseService;
 import inquerro.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -24,6 +27,9 @@ public class MainController {
     QuestionService questionService;
     CatagoriesService catagoriesService;
     Logger logger = LoggerFactory.getLogger(MainController.class);
+    
+  
+    
 
 
     public MainController(QuestionService questionService, CatagoriesService catagoriesService) {
@@ -44,9 +50,19 @@ public class MainController {
         model.addAttribute("questionsStatsList", questionsStatsList);
         return "topics";
     }
+    
+    @GetMapping("/publicPageTopics")
+    public String publicPage(Model model) {
+
+        List<QuestionsStats> questionsStatsList = catagoriesService.getQuestionStats();
+        logger.info("Questions stats  :" + questionsStatsList);
+        model.addAttribute("questionsStatsList", questionsStatsList);
+        return "topics";
+    }
 
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request) {
+    	logger.info("Into login getMapping");
         Authentication existingAuth = SecurityContextHolder.getContext().getAuthentication();
         if (!existingAuth.isAuthenticated())
             return "login";

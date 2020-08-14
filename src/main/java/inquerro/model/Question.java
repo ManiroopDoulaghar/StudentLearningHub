@@ -9,10 +9,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
+
 public class Question {
 
     private Long id;
@@ -27,5 +24,91 @@ public class Question {
     private boolean isDeleted;
     private String strAnswer;
     private List<String> likes;
+    
+    
+    
+    
+	public Question() {
+		super();
+	}
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getExplanation() {
+		return explanation;
+	}
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
+	}
+	public List<String> getOptions() {
+		return options;
+	}
+	public void setOptions(List<String> options) {
+		this.options = options;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public List<String> getTags() {
+		return tags;
+	}
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Timestamp getModifiedAt() {
+		return modifiedAt;
+	}
+	public void setModifiedAt(Timestamp modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	public String getStrAnswer() {
+		return strAnswer;
+	}
+	public void setStrAnswer(String strAnswer) {
+		this.strAnswer = strAnswer;
+	}
+	public List<String> getLikes() {
+		return likes;
+	}
+	public void setLikes(List<String> likes) {
+		this.likes = likes;
+	}
+    
+    
+    
+    
+    
 
 }

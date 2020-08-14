@@ -36,15 +36,15 @@ public class ImageUploadController {
 //    }
 
 
-    @GetMapping(path = { "/get/{imageName}" })
-    public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
-        final Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
-        ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
-                decompressBytes(retrievedImage.get().getPicByte()));
-        return img;
-    }
-
-    // compress the image bytes before storing it in the database
+//    @GetMapping(path = { "/get/{imageName}" })
+//    public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
+//        final Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
+//        ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
+//                decompressBytes(retrievedImage.get().getPicByte()));
+//        return img;
+//    }
+//
+//    // compress the image bytes before storing it in the database
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);

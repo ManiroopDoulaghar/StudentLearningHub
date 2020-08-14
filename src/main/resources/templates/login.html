@@ -201,7 +201,13 @@
     <nav class="navbar navbar-light bg-dark static-top">
         <div class="container">
             <a class="navbar-brand text-light" href="#">LearnHack</a>
-            <div id='signin_btn' class="btn btn-light" data-target="#exampleModal" data-toggle="modal">Sign In</div>
+            <form class="form-inline">
+            <div id='signin_btn' class="btn btn-light mr-1" data-target="#exampleModal" data-toggle="modal">
+            Sign In
+            </div>
+            <a href="/"  class="btn btn-light" th:href="@{/registration}">Register</a>
+            </form>
+            
         </div>
     </nav>
 
@@ -264,7 +270,7 @@
 
 
 
-    <!-- Masthead -->
+<!--     Masthead
     <header class="masthead text-white text-center">
         <div class="overlay"></div>
         <div class="container">
@@ -275,22 +281,24 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> -->
 
     <!-- Icons Grid -->
+     <div class="card">
+  <div class="card-header">
+    View all topics
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Welcome </h5>
+    <p class="card-text">All Topics and subtopics of below sections can be seen here. </p>
+    <form  th:action="@{/publicPageTopics}" method="get">
+    <button type="submit" class="btn btn-dark">View topics</button>
+    </form>
+  </div>
+</div>
     <section class="features-icons bg-light text-center">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="features-icons-item mx-auto mb-3 mb-lg-0">
-                        <div class="features-icons-icon d-flex">
-                            <i class="icon-screen-desktop m-auto text-primary"></i>
-                        </div>
-                        <h3>Gate</h3>
-                        <p class="lead mb-0">You have to self Motivator, because its your dream and you only have to chase it</p>
-                        <a href="#" class="style-6" data-target="#exampleModal" data-toggle="modal">Continue</a>
-                    </div>
-                </div>
                 <div class="col-lg-4">
                     <div class="features-icons-item mx-auto mb-3 mb-lg-0">
                         <div class="features-icons-icon d-flex">
@@ -451,6 +459,11 @@
             //     }
             // );
         });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#exampleModal").modal('show');
     });
 </script>
 </body>

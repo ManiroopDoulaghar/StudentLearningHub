@@ -23,10 +23,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers(
                             "/registration**",
+                            "/publicPageTopics**",
                             "/js/**",
                             "/css/**",
                             "/img/**",
-                            "/webjars/**").permitAll()
+                            "/webjars/**").
+                    permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
