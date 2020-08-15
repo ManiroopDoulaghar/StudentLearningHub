@@ -71,7 +71,7 @@ public class FirebaseService {
              boolean result = false;
 
             for (Map.Entry<String, Long> entry : tagDestination.entrySet()) {
-                System.out.println(entry.getKey() + ":branchThatTagBelongs: " + entry.getValue());
+                logger.info(entry.getKey() + ":branchThatTagBelongs: " + entry.getValue());
                 String tagName = entry.getKey();
                 Long branchThatTagBelongs = entry.getValue();
                 QuestionsStats questionsStats =  catagoriesService.getQuestionsStatsById(branchThatTagBelongs);

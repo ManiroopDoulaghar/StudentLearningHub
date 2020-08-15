@@ -29,7 +29,7 @@ public class CatagoriesService {
 
     public List<Catogories> getCatagories() throws ExecutionException, InterruptedException {
         Firestore firestore = FirestoreClient.getFirestore();
-        CollectionReference collectionReference = firestore.collection("Categories");
+        CollectionReference collectionReference = firestore.collection("Catagories");
         ApiFuture<QuerySnapshot> futureWithCondition = collectionReference.orderBy("id").get();
         List<QueryDocumentSnapshot> allDocuments = new ArrayList<>();
         List<Catogories> allCatagories = new ArrayList<>();

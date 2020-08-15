@@ -60,6 +60,12 @@ public class MainController {
         return "topics";
     }
 
+    @GetMapping("/publicPageQuestion")
+    public String publicPageQuestions(Model model) {
+
+        return "publicPage1";
+    }
+
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request) {
     	logger.info("Into login getMapping");
