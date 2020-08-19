@@ -28,8 +28,7 @@
 				<i class="material-icons md-light ml-2 pmd-sm"></i>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-right" role="menu">
-				<li class="dropdown-item" sec:authorize="isAuthenticated()"><a th:href="@{/getQuestionPage}">Edit Profile</a></li>
-				<li class="dropdown-item" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/getQuestionPage}">Upload Questions</a></li>
+				<li class="dropdown-item" sec:authorize="hasAuthority('Admin')"><a th:href="@{/getQuestionPage}">Upload Questions</a></li>
 				<li class="dropdown-item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 		</div>
@@ -64,7 +63,7 @@
 
 						<button type="submit" class="list-group-item list-group-item-action">
 							<div>Sample Tests</div>
-							<span class="badge badge-dark">10</span></button>
+							<span class="badge badge-dark">Free(access to everyone)</span></button>
 					</form></div></div>
 					<p class="card-text">Click below buttons to view subtopics</p>
 					<!--Single Block-->

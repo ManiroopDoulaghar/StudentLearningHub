@@ -92,7 +92,7 @@ public class QuestionService {
 //                .explanation(miniQuestion.getExplanation())
 //                .isDeleted(false)
 //                .modifiedAt(new Timestamp(System.currentTimeMillis()))
-//                .options(Arrays.asList(new String[]{miniQuestion.getOption0(),miniQuestion.getOption1(),miniQuestion.getOption2(),miniQuestion.getOption3()}))
+//                .options(Arrayxs.asList(new String[]{miniQuestion.getOption0(),miniQuestion.getOption1(),miniQuestion.getOption2(),miniQuestion.getOption3()}))
 //                .strAnswer(answer)
 //                .build();
 
@@ -123,10 +123,32 @@ public class QuestionService {
                logger.info("Exception occured in likeAQuestion service : " + e.getMessage());
                 e.printStackTrace();
            }
-
-
         return false;
+    }
 
+    public boolean markAQuestionAnswered(int questionId){
+        Firestore firestore = FirestoreClient.getFirestore();
+
+        DocumentReference questionDoc;
+        List<String> answeredUsers;
+        try {
+            Query query = firestore.collection("Questions").whereEqualTo("id", questionId);
+            questionDoc =  query.get().get().getDocuments().get(0).getReference();
+            logger.info("Answered below question with id:" + questionDoc.get().get().get("id"));
+            answeredUsers = (List<String>) questionDoc.get().get().get("answeredUsers");
+            if(answeredUsers == null){
+                answeredUsers = new ArrayList<>();
+            }
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String currentUserName = authentication.getName();
+            answeredUsers.add(currentUserName);
+            questionDoc.update("answeredUsers", answeredUsers);
+            return true;
+        }catch (Exception e) {
+            logger.info("Exception occured in markAQuestionAnswered service : " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean unlikeAQuestion(int questionId){
@@ -271,6 +293,7 @@ public class QuestionService {
             question.setContent(userData.get("content").toString());
             question.setTags((List<String>)userData.get("tags"));
             question.setExplanation(userData.get("explanation").toString());
+            question.setAnsweredUsers((List<String>)userData.get("answeredUsers"));
             question.setDeleted((boolean)userData.get("deleted"));
             question.setOptions(optionsList);
             question.setLikes((List<String>)userData.get("likes"));

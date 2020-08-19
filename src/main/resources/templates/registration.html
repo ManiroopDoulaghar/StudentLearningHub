@@ -89,6 +89,14 @@
                        th:text="${error}">Validation error</p>
                 </div>
                 <div class="form-group"
+                     th:classappend="${#fields.hasErrors('role')}? 'has-error':''" hidden>
+                    <label for="role" class="control-label">Role</label>
+                    <input id="role" class="form-control" th:field="*{role}"/>
+                    <p class="alert alert-danger"
+                       th:each="error : ${#fields.errors('role')}" th:text="${error}">Validation
+                        error</p>
+                </div>
+                <div class="form-group"
                      th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
                     <input id="terms" type="checkbox" th:field="*{terms}"/>   <label
                         class="control-label" for="terms"> I agree with the <a
@@ -166,13 +174,13 @@
     </div>
 </div>
 <div class="container">
-<footer class="footer bg-light">
+<footer class="footer bg-dark">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
                     <ul class="list-inline mb-2">
                         <li class="list-inline-item">
-                            <a href="#">About</a>
+                            <a href="">About</a>
                         </li>
                         <li class="list-inline-item">&sdot;</li>
                         <li class="list-inline-item">
@@ -212,6 +220,9 @@
         </div>
     </footer>
 </div>
+<script type="text/javascript">
+document.getElementById('role').value = 'User';
+</script>
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.4.1/jquery.min.js/}"></script>
 <script type="text/javascript"

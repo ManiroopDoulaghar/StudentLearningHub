@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+
+    <title>Registration</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand text-light" href="#">
+            LearnHacks
+        </a>
+    </nav>
+</div>
+
+<div class="container" >
+    <div class="row  justify-content-md-center">
+        <div class="col-md-6">
+        
+        <form method="post" th:action="@{/login}">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Invalid username or
+                            password.
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">You have been logged out.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Email</label>: <input autofocus="autofocus"
+                                                                    class="form-control" id="username" name="username"
+                                                                    placeholder="Email Id" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>: <input class="form-control"
+                                                                       id="passwordIn" name="password" placeholder="Password"
+                                                                       type="password"/>
+                    </div>
+                    <div class="form-group">
+                        <div >
+                            <div>
+                                <input class="form-control btn btn-dark" id="login-submit" name="login-submit"
+                                       type="submit" value="Log In"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+
+           
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- ************* -->
+
+                <form method="post" th:action="@{/login}">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Invalid username or
+                            password.
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">You have been logged out.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Email</label>: <input autofocus="autofocus"
+                                                                    class="form-control" id="username" name="username"
+                                                                    placeholder="Email Id" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>: <input class="form-control"
+                                                                       id="passwordIn" name="password" placeholder="Password"
+                                                                       type="password"/>
+                    </div>
+                    <div class="form-group">
+                        <div >
+                            <div>
+                                <input class="form-control btn btn-dark" id="login-submit" name="login-submit"
+                                       type="submit" value="Log In"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                  <span>New user?
+                    <a class="btn btn-dark btn-sm" href="/" th:href="@{/registration}">Register here</a>
+                  </span>
+                    </div>
+                </form>
+
+
+                <!-- ************* -->
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-dark">Sign In</button>
+              <button type="button" class="btn btn-dark">Register</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        th:src="@{/webjars/jquery/3.4.1/jquery.min.js/}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

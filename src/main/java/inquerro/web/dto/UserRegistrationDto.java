@@ -32,8 +32,18 @@ public class UserRegistrationDto {
     @NotEmpty
     private String confirmEmail;
 
+    private String role;
+
     @AssertTrue
     private Boolean terms;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -91,4 +101,17 @@ public class UserRegistrationDto {
         this.terms = terms;
     }
 
+    @Override
+    public String toString() {
+        return "UserRegistrationDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", confirmEmail='" + confirmEmail + '\'' +
+                ", role='" + role + '\'' +
+                ", terms=" + terms +
+                '}';
+    }
 }

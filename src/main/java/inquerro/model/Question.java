@@ -24,6 +24,7 @@ public class Question {
     private boolean isDeleted;
     private String strAnswer;
     private List<String> likes;
+	private List<String> answeredUsers;
     
     
     
@@ -105,10 +106,31 @@ public class Question {
 	public void setLikes(List<String> likes) {
 		this.likes = likes;
 	}
-    
-    
-    
-    
-    
 
+	public List<String> getAnsweredUsers() {
+		return answeredUsers;
+	}
+
+	public void setAnsweredUsers(List<String> answeredUsers) {
+		this.answeredUsers = answeredUsers;
+	}
+
+	@Override
+	public String toString() {
+		return "Question{" +
+				"id=" + id +
+				", content='" + content + '\'' +
+				", explanation='" + explanation + '\'' +
+				", options=" + options +
+				", answer='" + answer + '\'' +
+				", author='" + author + '\'' +
+				", tags=" + tags +
+				", createdAt=" + createdAt +
+				", modifiedAt=" + modifiedAt +
+				", isDeleted=" + isDeleted +
+				", strAnswer='" + strAnswer + '\'' +
+				", likes=" + likes +
+				", answeredUsers=" + answeredUsers +
+				'}';
+	}
 }

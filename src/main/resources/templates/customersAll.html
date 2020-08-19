@@ -45,7 +45,7 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
             <li class="dropdown-item" sec:authorize="isAuthenticated()"><a th:href="@{/getQuestionPage}">Edit Profile</a></li>
-            <li class="dropdown-item" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/getQuestionPage}">Upload Questions</a></li>
+            <li class="dropdown-item" sec:authorize="hasRole('Admin')"><a th:href="@{/getQuestionPage}">Upload Questions</a></li>
             <li class="dropdown-item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
         </ul>
     </div>

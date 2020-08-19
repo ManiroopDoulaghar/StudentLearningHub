@@ -67,6 +67,18 @@ public class QuestionController {
 
     }
 
+    @GetMapping("/markQuestionAnswered")
+    public ResponseEntity<String> markQuestionAnswered(@RequestParam(value = "id", required = true) String id){
+
+        boolean result = questionService.markAQuestionAnswered(Integer.parseInt(id));
+
+        if (result)
+            return ResponseEntity.status(HttpStatus.OK).body("Succesfully  Marked question answerted");
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unable to mark the question answerted");
+
+    }
+
     @GetMapping("/removeLike")
     public ResponseEntity<String> removeLike(@RequestParam(value = "id", required = true) String id){
 
@@ -80,7 +92,7 @@ public class QuestionController {
     }
 
     @PostMapping("/postQuestion")
-    public ResponseEntity<Question> createQuestion(@ModelAttribute MiniQuestion miniQuestion) throws ExecutionException, InterruptedException {
+    public String createQuestion(@ModelAttribute MiniQuestion miniQuestion) throws ExecutionException, InterruptedException {
 
 
         System.out.println(miniQuestion.toString());
@@ -90,19 +102,21 @@ public class QuestionController {
 
         if(questionId < 0){
             logger.error("Bad Request + " + String.valueOf(HttpStatus.BAD_REQUEST + ": Question + "  + question.toString()));
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(question);
+            return "viewUploadedQuestion";
         } else {
             question.setId(questionId + 1);
         }
 
         if (firebaseService.saveQuestion(question)){
             List<String> allTags = question.getTags();
-            return ResponseEntity.status(HttpStatus.OK).body(question);
+           // return ResponseEntity.status(HttpStatus.OK).body(question);
+            return "viewUploadedQuestion";
         }
 
         else{
             logger.error("Bad Request + " + String.valueOf(HttpStatus.BAD_REQUEST + ": Question + "  + question.toString()));
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(question);
+           // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(question);
+            return "viewUploadedQuestion";
         }
 
 
@@ -113,64 +127,14 @@ public class QuestionController {
 
         model.put("number", 1234);
         model.put("equation", "View equation here");
+        logger.info("get: /getQuestionPage: uploadQuestion.html");
         return new ModelAndView("uploadQuestion");
 
     }
 
-    @GetMapping("/listStudentsAall")
-    public String listStudentAll(Model model) throws ExecutionException, InterruptedException, IOException {
-
-        List<Question> userList = questionService.getAllQuestions();
-        System.out.println(userList);
-        model.addAttribute("customersAll", userList);
-        return "customersAll";
-    }
 
 
 
-    @GetMapping("/getQuestionsPage")
-    public String getQuestionsPage(@RequestParam(value = "start", required = false)Integer start, Model model) throws ExecutionException, InterruptedException, IOException {
-
-        logger.info("start id: " + start);
-        if (start == null){
-            start =0;
-        }
-        List<Question> questionsList = questionService.getPaginatedQuestions(start,Integer.parseInt("20"));
-        logger.debug("Question List: " + questionsList);
-        List<String> allAnswers = new ArrayList<>();
-        Long lastId = 0l;
-        for (Question question:
-                questionsList) {
-            allAnswers.add(question.getAnswer());
-        }
-        List<String> allAnswersAlphabets = new ArrayList<>();
-        for (Question question:
-                questionsList) {
-            String answer = question.getStrAnswer();
-            if(answer == null) {
-                int number = Integer.parseInt( question.getAnswer().replace("option",""));
-
-                if (number==0){
-                    answer = "a";
-                }else if(number==1){
-                    answer = "b";
-                }else if(number == 2){
-                    answer = "c";
-                }else
-                    answer = "d";
-            }
-            allAnswersAlphabets.add(answer);
-            lastId =question.getId();
-        }
-
-        logger.info("Last Id: " + lastId);
-
-        model.addAttribute("customersAll", questionsList);
-        model.addAttribute("allAnswers", allAnswers);
-        model.addAttribute("allAnswersAlphabets", allAnswersAlphabets);
-
-        return "getQuestionsPage";
-    }
 
     @GetMapping("/getQuestionsPageByTagName")
     public String getQuestionsPageByTagName(@RequestParam(value = "start", required = false)Integer start, @RequestParam String[] tags, @RequestParam String totalQuestions, @RequestParam String parentTopic, Model model) throws ExecutionException, InterruptedException, IOException {
@@ -191,6 +155,7 @@ public class QuestionController {
         List<String> allAnswers = new ArrayList<>();
         List<Integer> allLikes = new ArrayList<>();
         List<Boolean> amILiked = new ArrayList<>();
+        List<Boolean> amIAnswered = new ArrayList<>();
         for (Question question:
                 questionsList) {
             allAnswers.add(question.getAnswer());
@@ -207,9 +172,20 @@ public class QuestionController {
                     amILiked.add(false);
                 }
             }
+            if(question.getAnsweredUsers() == null){
+                amIAnswered.add(false);
+            }else {
+                List<String> answeredUsers = question.getAnsweredUsers();
+                if (answeredUsers.contains(currentUserName)){
+                    amIAnswered.add(true);
+                }else{
+                    amIAnswered.add(false);
+                }
+            }
 
         }
         logger.info("am I liked: " + amILiked.toString());
+        logger.info("am I answered: " + amIAnswered.toString());
         List<String> allAnswersAlphabets = new ArrayList<>();
         Long lastId = 0l;
         for (Question question:
@@ -254,6 +230,7 @@ public class QuestionController {
 
         logger.info("Total Question available: "+ questionsList.size());
         logger.info("paginationList: "+ paginationList);
+
         model.addAttribute("customersAll", questionsList);
         model.addAttribute("allAnswers", allAnswers);
         model.addAttribute("allAnswersAlphabets", allAnswersAlphabets);
@@ -263,9 +240,11 @@ public class QuestionController {
         model.addAttribute("parentTopic", parentTopic.length()<=5 ?parentTopic: getShortName(parentTopic));
         model.addAttribute("allLikes", allLikes);
         model.addAttribute("amILiked", amILiked);
+        model.addAttribute("amIAnswered", amIAnswered);
         model.addAttribute("lastId", lastId);
 
 
+        logger.info("get: /getQuestionsPageByTagName: getQuestionsPage.html");
         return "getQuestionsPage";
     }
 

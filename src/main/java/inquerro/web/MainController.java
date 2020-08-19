@@ -48,6 +48,7 @@ public class MainController {
         List<QuestionsStats> questionsStatsList = catagoriesService.getQuestionStats();
         logger.info("Questions stats  :" + questionsStatsList);
         model.addAttribute("questionsStatsList", questionsStatsList);
+        logger.info("get: /: topics.html");
         return "topics";
     }
     
@@ -57,12 +58,14 @@ public class MainController {
         List<QuestionsStats> questionsStatsList = catagoriesService.getQuestionStats();
         logger.info("Questions stats  :" + questionsStatsList);
         model.addAttribute("questionsStatsList", questionsStatsList);
+        logger.info("get: /publicPageTopics: topics.html");
         return "topics";
     }
 
     @GetMapping("/publicPageQuestion")
     public String publicPageQuestions(Model model) {
 
+        logger.info("get: /publicPageQuestion: publicPage1.html");
         return "publicPage1";
     }
 
@@ -76,6 +79,12 @@ public class MainController {
             System.out.println(request.getRequestURI());
         return "login";
 
+    }
+
+    @GetMapping("/about")
+    public String about() {
+
+        return  "About";
     }
 
     @GetMapping("/user")
